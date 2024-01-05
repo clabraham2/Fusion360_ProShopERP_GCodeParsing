@@ -12,3 +12,5 @@ proshop.writeOpNumber();
 Copy/Paste next line anywhere in onSection():
 
 proshop.writeSectionDetails();
+
+The RTA number can be set to use the Fusion 360 Tool Number or Tool Comment via post property.
