@@ -44,7 +44,7 @@ function proshopErp() {
         writeComment("ProShop ERP Tool Details")
         for (var i = 0; i < tools.getNumberOfTools(); ++i) {
           var tool = tools.getTool(i);
-          writeComment(" * RTA NUMBER = "+tool.number);
+          writeComment(" * RTA NUMBER = "+ getRtaSource(tool));
           writeComment(" * OUT OF HOLDER LGTH = "+toolErpLengthFormat.format(tool.bodyLength));
         }
         writeln('');
@@ -55,11 +55,20 @@ function proshopErp() {
   this.writeSectionDetails = function() {
     if (getProperty('_useProshopGCodeParsing') && getProperty('detailFormat') == 'sequenceList') {
       var toolErpLengthFormat = createFormat({decimals:(unit == MM ? 1 : 2), forceDecimal:true, trim:false});
-      writeComment(" * RTA NUMBER = "+tool.number);
+      writeComment(" * RTA NUMBER = "+ getRtaSource(tool));
       writeComment(" * SEQ DESC = "+sequenceNumber + " " + getParameter("operation-comment"));
       writeComment(" * OUT OF HOLDER LGTH = "+toolErpLengthFormat.format(tool.bodyLength));
     }
   };
+
+  getRtaSource = function(tool) {
+    switch (getProperty('rtaNumberSource')) {
+      case 'toolNumber':
+        return tool.number;
+      case 'toolComment':
+        return tool.comment;
+    }
+  }
 }
   
 /* End ProShop G-Code Parse Add-in */
